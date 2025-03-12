@@ -1,9 +1,12 @@
+package hieds;
+
 
 import admin.userPage;
 import admin.AdminDashboard;
-import admin.UserDashboard;
+import user.UserDashboard;
 import config.Session;
 import config.dbConnector;
+import config.passwordHasher;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -12,7 +15,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import java.lang.String;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 
 
 /*
@@ -36,34 +43,39 @@ public class LOGIN extends javax.swing.JFrame {
     
     static String type="";
     static String status= "";
-    
+
     public static boolean LOGIN(String usern, String password){
         dbConnector connector = new dbConnector();
+        
         try{
-            String query = "SELECT * FROM tbl_user WHERE u_user = '"+usern+"' AND u_password = '"+password+"'";
+            String query = "SELECT * FROM tbl_user WHERE u_user = '"+usern+"'";
             ResultSet resultSet = connector.getData(query);
+            if(resultSet.next()){
+  
+            String hashedPass = resultSet.getString("u_password");
+            String rehashedPass = passwordHasher.hashPassword(password);
             
-           if(resultSet.next()){
-            Session ses = Session.getInstance();
-            type=resultSet.getString("u_type");
-            status=resultSet.getString("u_status"); 
-            
-             Session sess=Session.getInstance();
-        sess.setUid(resultSet.getInt("u_id"));
-        sess.setName(resultSet.getString("u_name"));
-        sess.setEmail(resultSet.getString("u_email"));
-        sess.setType(resultSet.getString("u_type"));
-        sess.setStatus(resultSet.getString("u_status"));
+          System.out.println(""+hashedPass); 
+          System.out.println(""+rehashedPass);  
+          if(hashedPass.equals(rehashedPass)){
+          type=resultSet.getString("u_type");
+          status=resultSet.getString("u_status");    
+          Session sess=Session.getInstance();
+            sess.setUid(resultSet.getInt("u_id"));
+            sess.setName(resultSet.getString("u_name"));
+            sess.setEmail(resultSet.getString("u_email"));
+            sess.setType(resultSet.getString("u_type"));
+            sess.setStatus(resultSet.getString("u_status"));
+        return true; 
         
-            return true;
         }else{
-              
-            return false;      
+           return false;
         }
-        
-        }catch (SQLException ex){
-            System.out.println(""+ex);
-            return false;
+        }else{
+           return false;
+        }
+        }catch (SQLException | NoSuchAlgorithmException ex){
+         return false;
         }
     }
         
@@ -71,12 +83,6 @@ public class LOGIN extends javax.swing.JFrame {
         panel.setBackground(defbutton);
         panel.setBorder(empty);
     }
-      
-
-        
-    
-   
-    
             
     Color hover=new Color(0,102,102);
     Color defbutton=new Color(0,102,102);
@@ -208,6 +214,7 @@ public class LOGIN extends javax.swing.JFrame {
         password.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jPanel3.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 200, 40));
 
+        jButton1.setBackground(new java.awt.Color(0, 102, 102));
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton1.setText("LOGIN");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -258,6 +265,7 @@ public class LOGIN extends javax.swing.JFrame {
         if (LOGIN(usern.getText(), password.getText())) {
    if (!status.equals("Active")) {
         JOptionPane.showMessageDialog(null, "The account is not yet Active. Please contact the administrator");
+        
     } else {
         JOptionPane.showMessageDialog(null, "Login Successfully!");
         if (type.equals("Admin")) {

@@ -1,15 +1,23 @@
+package hieds;
 
+
+import hieds.LOGIN;
 import config.dbConnector;
+import config.passwordHasher;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.security.NoSuchAlgorithmException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import static jdk.nashorn.internal.parser.TokenType.IF;
-import static sun.java2d.cmm.ColorTransform.In;
+import config.dbConnector;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -29,27 +37,33 @@ public class REGISTRATIONF extends javax.swing.JFrame {
     public REGISTRATIONF() {
         initComponents();
     }
-    public static String email, usern;
-     public boolean duplicateCheack(){
+    public boolean duplicateCheack(){
          dbConnector dbc = new dbConnector();
-         try{
-             String query = "SELECT * FROM tbl_user WHERE u_email = '"+em.getText()+ "'";
+
+    String emailInput = em.getText();
+    String usernameInput = usrn.getText();
+    
+    try{
+        String query = "SELECT * FROM tbl_user WHERE u_email = '"+em.getText()+ "'";
             ResultSet resultSet = dbc.getData(query);
             
            if(resultSet.next()){
-               
-               email = resultSet.getString("u_email");
-               System.out.println(""+email);
-               if(email.equals(em.getText())){
-                   JOptionPane.showMessageDialog(null,"Email is Already Used!"); 
-                   em.setText("");
-               }
-               usern = resultSet.getString("u_user");
-               System.out.println(""+usern);
-               if(usern.equals(usrn.getText())){
-                   JOptionPane.showMessageDialog(null,"User is Already Used!"); 
-                   usrn.setText("");
-               }
+
+            String email = resultSet.getString("u_email");
+            System.out.println("Email: " + email);
+            if (email != null && email.equals(emailInput)) {
+                JOptionPane.showMessageDialog(null, "Email is Already Used!"); 
+                em.setText("");
+                return true;  
+            }
+            
+            String usern = resultSet.getString("u_user");
+            System.out.println("Username: " + usern);
+            if (usern != null && usern.equals(usernameInput)) {
+                JOptionPane.showMessageDialog(null, "User is Already Used!"); 
+                usrn.setText("");
+                return true; 
+            }
                return true;
            }else{
                return false;
@@ -59,6 +73,7 @@ public class REGISTRATIONF extends javax.swing.JFrame {
             return false; 
          }
      }
+
     
     Color hover=new Color(0,102,102);
     Color defbutton=new Color(0,102,102);
@@ -96,11 +111,7 @@ public class REGISTRATIONF extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         FN = new javax.swing.JTextField();
-        REGS = new javax.swing.JPanel();
-        H = new javax.swing.JLabel();
         usrn = new javax.swing.JTextField();
-        CANS = new javax.swing.JPanel();
-        CANSS = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         em = new javax.swing.JTextField();
         fn = new javax.swing.JLabel();
@@ -109,7 +120,8 @@ public class REGISTRATIONF extends javax.swing.JFrame {
         pass = new javax.swing.JLabel();
         type = new javax.swing.JLabel();
         utype = new javax.swing.JComboBox<>();
-        passw = new javax.swing.JTextField();
+        passw = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -150,7 +162,7 @@ public class REGISTRATIONF extends javax.swing.JFrame {
         IMAGE.setBackground(new java.awt.Color(0, 102, 102));
         IMAGE.setForeground(new java.awt.Color(0, 102, 102));
         IMAGE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Pink and Black Simple Pet Shop Logo.png"))); // NOI18N
-        jPanel2.add(IMAGE, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, 80, 410, 400));
+        jPanel2.add(IMAGE, new org.netbeans.lib.awtextra.AbsoluteConstraints(-90, 80, 400, 400));
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 310, 480);
@@ -167,66 +179,9 @@ public class REGISTRATIONF extends javax.swing.JFrame {
         FN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel3.add(FN, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 200, 30));
 
-        REGS.setBackground(new java.awt.Color(0, 102, 102));
-        REGS.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                REGSMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                REGSMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                REGSMouseExited(evt);
-            }
-        });
-
-        H.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        H.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        H.setText("REGISTER");
-
-        javax.swing.GroupLayout REGSLayout = new javax.swing.GroupLayout(REGS);
-        REGS.setLayout(REGSLayout);
-        REGSLayout.setHorizontalGroup(
-            REGSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(H, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-        );
-        REGSLayout.setVerticalGroup(
-            REGSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(H, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-        );
-
-        jPanel3.add(REGS, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 80, 30));
-
         usrn.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         usrn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel3.add(usrn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, 30));
-
-        CANS.setBackground(new java.awt.Color(0, 102, 102));
-        CANS.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                CANSMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                CANSMouseExited(evt);
-            }
-        });
-
-        CANSS.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        CANSS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        CANSS.setText("CANCEL");
-
-        javax.swing.GroupLayout CANSLayout = new javax.swing.GroupLayout(CANS);
-        CANS.setLayout(CANSLayout);
-        CANSLayout.setHorizontalGroup(
-            CANSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(CANSS, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-        );
-        CANSLayout.setVerticalGroup(
-            CANSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(CANSS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-        );
-
-        jPanel3.add(CANS, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, -1, -1));
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Already Have an Account? Click Here to Login");
@@ -269,9 +224,22 @@ public class REGISTRATIONF extends javax.swing.JFrame {
         utype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", " " }));
         jPanel3.add(utype, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 200, 30));
 
-        passw.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        passw.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        passw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwActionPerformed(evt);
+            }
+        });
         jPanel3.add(passw, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 200, 30));
+
+        jButton1.setBackground(new java.awt.Color(0, 102, 102));
+        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
+        jButton1.setText("REGISTER");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 80, 30));
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(310, 0, 450, 480);
@@ -305,32 +273,28 @@ public class REGISTRATIONF extends javax.swing.JFrame {
      this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void CANSMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CANSMouseExited
-        buttonDefaultColor(CANS);
-    }//GEN-LAST:event_CANSMouseExited
+    private void passwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwActionPerformed
+        
+    }//GEN-LAST:event_passwActionPerformed
 
-    private void CANSMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CANSMouseEntered
-        buttonBorderAnimation(CANS);
-    }//GEN-LAST:event_CANSMouseEntered
-
-    private void REGSMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_REGSMouseExited
-        buttonDefaultColor(REGS);
-    }//GEN-LAST:event_REGSMouseExited
-
-    private void REGSMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_REGSMouseEntered
-        buttonBorderAnimation(REGS);
-    }//GEN-LAST:event_REGSMouseEntered
-
-    private void REGSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_REGSMouseClicked
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        if(FN.getText().isEmpty()||em.getText().isEmpty()||usrn.getText().isEmpty()||passw.getText().isEmpty() ){
         JOptionPane.showMessageDialog(null,"All Fields are Required"); 
        }else{if(passw.getText().length() < 8){
          JOptionPane.showMessageDialog(null,"Password character should be 8 above");
          passw.setText("");
+       
      }else if(duplicateCheack()){
              System.out.println("Duplicate Exist");
        }else{
         dbConnector dbc = new dbConnector();
+        
+        try{
+            String pass = passwordHasher.hashPassword(passw.getText());
+        }  catch (NoSuchAlgorithmException ex) {
+             System.out.println(""+ex);
+
+           }
         if(dbc.insertData("INSERT INTO tbl_user (u_name, u_email, u_user, u_password, u_type, u_status)"
                 + "VALUES('"+FN.getText()+"', '"+em.getText()+"', '"+usrn.getText()+"', '"+passw.getText()+"', '"+utype.getSelectedItem()+"', 'Pending')"))
         {
@@ -343,8 +307,7 @@ public class REGISTRATIONF extends javax.swing.JFrame {
         }  
        }
        }
-    
-    }//GEN-LAST:event_REGSMouseClicked
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,16 +345,13 @@ public class REGISTRATIONF extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel CANS;
-    private javax.swing.JLabel CANSS;
-    private javax.swing.JTextField FN;
-    private javax.swing.JLabel H;
+    public javax.swing.JTextField FN;
     private javax.swing.JLabel IMAGE;
-    private javax.swing.JPanel REGS;
-    private javax.swing.JTextField em;
+    public javax.swing.JTextField em;
     private javax.swing.JLabel emel;
     private javax.swing.JLabel exits;
     private javax.swing.JLabel fn;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -401,10 +361,10 @@ public class REGISTRATIONF extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel pass;
-    private javax.swing.JTextField passw;
+    private javax.swing.JPasswordField passw;
     private javax.swing.JLabel type;
     private javax.swing.JLabel user;
-    private javax.swing.JTextField usrn;
-    private javax.swing.JComboBox<String> utype;
+    public javax.swing.JTextField usrn;
+    public javax.swing.JComboBox<String> utype;
     // End of variables declaration//GEN-END:variables
 }

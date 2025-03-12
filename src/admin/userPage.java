@@ -14,6 +14,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 /**
  *
@@ -65,21 +67,17 @@ public class userPage extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        ADD = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        EDIT = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        DLT = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         search = new javax.swing.JTextField();
-        REF = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
         narvar = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         ID = new javax.swing.JLabel();
         CU = new javax.swing.JLabel();
+        adds = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        edit = new javax.swing.JPanel();
+        ed = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         user_table = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
@@ -116,9 +114,9 @@ public class userPage extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("USER PAGE");
+        jLabel2.setText("USERS FORM");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(0, 0, 410, 50);
+        jLabel2.setBounds(20, 0, 190, 50);
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -133,140 +131,11 @@ public class userPage extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 620, 50));
 
-        ADD.setBackground(new java.awt.Color(0, 153, 153));
-        ADD.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        ADD.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ADDMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ADDMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ADDMouseExited(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("ADD");
-
-        javax.swing.GroupLayout ADDLayout = new javax.swing.GroupLayout(ADD);
-        ADD.setLayout(ADDLayout);
-        ADDLayout.setHorizontalGroup(
-            ADDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ADDLayout.createSequentialGroup()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        ADDLayout.setVerticalGroup(
-            ADDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(ADD, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 60, 30));
-
-        EDIT.setBackground(new java.awt.Color(0, 153, 153));
-        EDIT.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        EDIT.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EDITMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                EDITMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                EDITMouseExited(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("EDIT");
-
-        javax.swing.GroupLayout EDITLayout = new javax.swing.GroupLayout(EDIT);
-        EDIT.setLayout(EDITLayout);
-        EDITLayout.setHorizontalGroup(
-            EDITLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EDITLayout.createSequentialGroup()
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        EDITLayout.setVerticalGroup(
-            EDITLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(EDIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 60, 30));
-
-        DLT.setBackground(new java.awt.Color(0, 153, 153));
-        DLT.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        DLT.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                DLTMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                DLTMouseExited(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("DELETE");
-
-        javax.swing.GroupLayout DLTLayout = new javax.swing.GroupLayout(DLT);
-        DLT.setLayout(DLTLayout);
-        DLTLayout.setHorizontalGroup(
-            DLTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DLTLayout.createSequentialGroup()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        DLTLayout.setVerticalGroup(
-            DLTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(DLT, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 60, 30));
-
         search.setBackground(new java.awt.Color(0, 153, 153));
         search.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         search.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         search.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 100, 30));
-
-        REF.setBackground(new java.awt.Color(0, 153, 153));
-        REF.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        REF.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                REFMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                REFMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                REFMouseExited(evt);
-            }
-        });
-
-        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("REFRESH");
-
-        javax.swing.GroupLayout REFLayout = new javax.swing.GroupLayout(REF);
-        REF.setLayout(REFLayout);
-        REFLayout.setHorizontalGroup(
-            REFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(REFLayout.createSequentialGroup()
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        REFLayout.setVerticalGroup(
-            REFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(REF, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 60, 30));
 
         narvar.setBackground(new java.awt.Color(0, 102, 102));
         narvar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -282,15 +151,15 @@ public class userPage extends javax.swing.JFrame {
             }
         });
         jPanel4.add(jLabel12);
-        jLabel12.setBounds(0, 0, 130, 140);
+        jLabel12.setBounds(0, 0, 130, 50);
 
         jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("USER");
+        jLabel13.setText("USERS");
         jPanel4.add(jLabel13);
-        jLabel13.setBounds(0, 100, 130, 40);
+        jLabel13.setBounds(0, 50, 130, 40);
 
-        narvar.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 130, 150));
+        narvar.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 130, 100));
 
         ID.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         ID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -301,6 +170,100 @@ public class userPage extends javax.swing.JFrame {
         CU.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CU.setText("Current User");
         narvar.add(CU, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 170, 30));
+
+        adds.setBackground(new java.awt.Color(0, 102, 102));
+        adds.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                addsMouseExited(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("ADD");
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel15MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel15MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel15MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout addsLayout = new javax.swing.GroupLayout(adds);
+        adds.setLayout(addsLayout);
+        addsLayout.setHorizontalGroup(
+            addsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addsLayout.createSequentialGroup()
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        addsLayout.setVerticalGroup(
+            addsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addsLayout.createSequentialGroup()
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        narvar.add(adds, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 170, 40));
+
+        edit.setBackground(new java.awt.Color(0, 102, 102));
+        edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                editMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                editMouseExited(evt);
+            }
+        });
+
+        ed.setBackground(new java.awt.Color(0, 102, 102));
+        ed.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        ed.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ed.setText("EDIT");
+        ed.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                edMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                edMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                edMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout editLayout = new javax.swing.GroupLayout(edit);
+        edit.setLayout(editLayout);
+        editLayout.setHorizontalGroup(
+            editLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 170, Short.MAX_VALUE)
+            .addGroup(editLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(editLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(ed, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        editLayout.setVerticalGroup(
+            editLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(editLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(editLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(ed, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        narvar.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, -1, 40));
 
         jPanel1.add(narvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, 390));
 
@@ -344,50 +307,6 @@ public class userPage extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void ADDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ADDMouseClicked
-
-    }//GEN-LAST:event_ADDMouseClicked
-
-    private void ADDMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ADDMouseEntered
-        ADD.setBackground(narv);
-    }//GEN-LAST:event_ADDMouseEntered
-
-    private void ADDMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ADDMouseExited
-        ADD.setBackground(head);
-    }//GEN-LAST:event_ADDMouseExited
-
-    private void EDITMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITMouseClicked
-
-    }//GEN-LAST:event_EDITMouseClicked
-
-    private void EDITMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITMouseEntered
-        EDIT.setBackground(narv);
-    }//GEN-LAST:event_EDITMouseEntered
-
-    private void EDITMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITMouseExited
-        EDIT.setBackground(head);
-    }//GEN-LAST:event_EDITMouseExited
-
-    private void DLTMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DLTMouseEntered
-        DLT.setBackground(narv);
-    }//GEN-LAST:event_DLTMouseEntered
-
-    private void DLTMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DLTMouseExited
-        DLT.setBackground(head);
-    }//GEN-LAST:event_DLTMouseExited
-
-    private void REFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_REFMouseClicked
-      
-    }//GEN-LAST:event_REFMouseClicked
-
-    private void REFMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_REFMouseEntered
-        REF.setBackground(narv);
-    }//GEN-LAST:event_REFMouseEntered
-
-    private void REFMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_REFMouseExited
-        REF.setBackground(head);
-    }//GEN-LAST:event_REFMouseExited
-
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
 
     }//GEN-LAST:event_jLabel12MouseClicked
@@ -396,6 +315,90 @@ public class userPage extends javax.swing.JFrame {
        Session sess = Session.getInstance();
         ID.setText(""+sess.getUid());
     }//GEN-LAST:event_formWindowActivated
+
+    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+        CreateUserForm cf = new CreateUserForm();
+        cf.setVisible(true);
+        cf.remove.setEnabled(false);
+        cf.select.setEnabled(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel15MouseClicked
+
+    private void jLabel15MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseEntered
+        adds.setBackground(narv);
+    }//GEN-LAST:event_jLabel15MouseEntered
+
+    private void jLabel15MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseExited
+        adds.setBackground(bodyc);
+    }//GEN-LAST:event_jLabel15MouseExited
+
+    private void addsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addsMouseEntered
+
+    }//GEN-LAST:event_addsMouseEntered
+
+    private void addsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addsMouseExited
+
+    }//GEN-LAST:event_addsMouseExited
+
+    private void edMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edMouseClicked
+        int rowIndex = user_table.getSelectedRow();
+
+        if (rowIndex < 0) {
+            JOptionPane.showMessageDialog(null, "Please select an Item!");
+        } else {
+            try {
+                dbConnector dbc = new dbConnector();
+                TableModel tbl = user_table.getModel();
+                String query = "SELECT * FROM tbl_user WHERE u_id = '" + tbl.getValueAt(rowIndex, 0) + "'";
+                ResultSet rs = dbc.getData(query);
+                if (rs.next()) {
+                    CreateUserForm crf = new CreateUserForm();
+
+                    crf.uid.setText(rs.getString("u_id"));
+                    crf.nm.setText(rs.getString("u_name"));
+                    crf.em.setText(rs.getString("u_email"));
+                    crf.usrn.setText(rs.getString("u_user"));
+                    crf.ut.setSelectedItem(rs.getString("u_type"));
+                    crf.us.setSelectedItem(rs.getString("u_status"));
+                    crf.ADD.setEnabled(false);
+                    crf.UPDATE.setEnabled(true);
+                    crf.setVisible(true);
+                    
+                    if(rs.getString("u_image").isEmpty()){ 
+                    crf.select.setEnabled(true);           
+                    crf.remove.setEnabled(false);
+                    }else{
+                    crf.select.setEnabled(false);
+                    crf.remove.setEnabled(true);
+                     
+                    }
+                    this.dispose();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Errors: " + ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_edMouseClicked
+
+    private void edMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edMouseEntered
+        edit.setBackground(narv);
+    }//GEN-LAST:event_edMouseEntered
+
+    private void edMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edMouseExited
+        edit.setBackground(bodyc);
+    }//GEN-LAST:event_edMouseExited
+
+    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
+
+    }//GEN-LAST:event_editMouseClicked
+
+    private void editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseEntered
+
+    }//GEN-LAST:event_editMouseEntered
+
+    private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
+
+    }//GEN-LAST:event_editMouseExited
 
     /**
      * @param args the command line arguments
@@ -433,21 +436,17 @@ public class userPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel ADD;
     private javax.swing.JLabel CU;
-    private javax.swing.JPanel DLT;
-    private javax.swing.JPanel EDIT;
     private javax.swing.JLabel ID;
-    private javax.swing.JPanel REF;
+    private javax.swing.JPanel adds;
+    private javax.swing.JLabel ed;
+    private javax.swing.JPanel edit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

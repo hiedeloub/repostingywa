@@ -9,6 +9,8 @@ package admin;
 
 
 
+import user.UserDashboard;
+import hieds.LOGIN;
 import config.Session;
 import java.awt.Color;
 import internalPages.*;
@@ -16,7 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
+import hieds.dashboard;
 
 /**
  *
@@ -34,21 +36,6 @@ public class AdminDashboard extends javax.swing.JFrame {
     /**
      *
      */
-    public static class LOGIN {
-
-        public LOGIN() {
-        }
-
-        private void setVisible(boolean b) {
-        }
-        }
-  
-    private static class dashboard { 
-         private void setVisible(boolean b) {
-             
-         }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -179,14 +166,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel6.setBounds(0, 120, 130, 40);
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/team (2).png"))); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon("C:\\Users\\Vilma Gaming\\Downloads\\icons8-user-80.png")); // NOI18N
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel12MouseClicked(evt);
             }
         });
         jPanel4.add(jLabel12);
-        jLabel12.setBounds(10, 20, 110, 110);
+        jLabel12.setBounds(20, 20, 90, 100);
 
         jPanel1.add(jPanel4);
         jPanel4.setBounds(350, 150, 130, 160);
@@ -236,16 +223,13 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_nnMouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
-        userPage up = new userPage();
-        up.setVisible(true);
+        UserDashboard ud = new UserDashboard();
+        ud.setVisible(true);
         this.dispose();
-
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
-        userPage up = new userPage();
-        up.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_jPanel4MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -260,7 +244,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         Session sess = Session.getInstance();
-        
+        int u_id = sess.getUid();
      if(sess.getUid()== 0){
       JOptionPane.showMessageDialog(null, "No account found, must login!");
       LOGIN lf = new LOGIN();
@@ -268,7 +252,7 @@ public class AdminDashboard extends javax.swing.JFrame {
       this.dispose();
      }else{
          acc_name.setText(""+sess.getName());
-    }
+     }
     }//GEN-LAST:event_formWindowActivated
 
     /**
